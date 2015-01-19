@@ -4,7 +4,7 @@
 
 	<groupId>org.easyframe</groupId>
 	<artifactId>ef-orm</artifactId>
-	<version>1.9.5-SNAPSHOT</version>
+	<version>1.9.5.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>EasyFrame ORM</name>
@@ -153,14 +153,14 @@
 
 		</plugins>
 	</build>
-	 <distributionManagement>
+	<distributionManagement>
 		<repository>
-			<id>hikreleases</id>
+			<id>fsdmdept-release</id>
 			<name>Release Repository</name>
 			<url>http://192.0.0.55/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>hiksnapshots</id>
+			<id>fsdmdept-snapshot</id>
 			<name>Snapshots Repository</name>
 			<url>http://192.0.0.55/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
