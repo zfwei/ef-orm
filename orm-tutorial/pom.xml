@@ -16,19 +16,16 @@
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-core</artifactId>
 			<version>1.9.6.RELEASE</version>
-			<!-- <scope>system</scope> <systemPath>${project.basedir}/lib/common-core-1.9.6.RELEASE.jar</systemPath> -->
 		</dependency>
 		<dependency>
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-orm</artifactId>
 			<version>1.9.6.RELEASE</version>
-			<!-- <scope>system</scope> <systemPath>${project.basedir}/lib/common-orm-1.9.6.RELEASE.jar</systemPath> -->
 		</dependency>
 		<dependency>
 			<groupId>org.easyframe</groupId>
 			<artifactId>orm-test</artifactId>
 			<version>1.9.6.RELEASE</version>
-			<!-- <scope>system</scope> <systemPath>${project.basedir}/lib/common-core-1.9.6.RELEASE.jar</systemPath> -->
 		</dependency>
 
 		<dependency>
@@ -50,7 +47,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.derby</groupId>
