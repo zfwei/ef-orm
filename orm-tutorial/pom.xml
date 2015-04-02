@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.easyframe</groupId>
 	<artifactId>orm-tutorial</artifactId>
-	<version>1.9.6.RELEASE</version>
+	<version>1.9.6.1.RELEASE</version>
 	<name>orm-tutorial</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -15,17 +15,17 @@
 		<dependency>
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-core</artifactId>
-			<version>1.9.6.RELEASE</version>
+			<version>1.9.6.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-orm</artifactId>
-			<version>1.9.6.RELEASE</version>
+			<version>1.9.6.1.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.easyframe</groupId>
 			<artifactId>orm-test</artifactId>
-			<version>1.9.6.RELEASE</version>
+			<version>1.9.6.1.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -64,7 +64,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>3.2.5.RELEASE</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -128,7 +127,7 @@
 			<plugin>
 				<groupId>org.easyframe</groupId>
 				<artifactId>jef-maven-plugin</artifactId>
-				<version>1.9.6.RELEASE</version>
+				<version>1.9.6.1.RELEASE</version>
 				<executions>
 					<execution>
 						<goals>
@@ -167,4 +166,16 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>fsdmdept-release</id>
+			<name>Release Repository</name>
+			<url>http://192.0.0.55/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>fsdmdept-snapshot</id>
+			<name>Snapshots Repository</name>
+			<url>http://192.0.0.55/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
