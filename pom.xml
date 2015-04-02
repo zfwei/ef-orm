@@ -4,7 +4,7 @@
 
 	<groupId>org.easyframe</groupId>
 	<artifactId>ef-orm</artifactId>
-	<version>1.9.6.RELEASE</version>
+	<version>1.9.6.1.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>EasyFrame ORM</name>
@@ -13,7 +13,6 @@
 		<module>common-orm</module>
 		<module>orm-test</module>
 		<module>jef-maven-plugin</module>
-		<module>orm-tutorial</module>
 		<module>orm-code-generator</module>
   </modules>
 	<properties>
