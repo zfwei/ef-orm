@@ -3,13 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>org.easyframe</groupId>
-		<artifactId>ef-orm</artifactId>
-		<version>1.9.6.2.RELEASE</version>
-	</parent>
-
+	<groupId>org.easyframe</groupId>
+	<version>1.9.6.2.RELEASE</version>
 	<artifactId>jef-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>EasyFrame Maven Build Helper</name>
@@ -19,10 +14,35 @@
 	</properties>
 
 	<build>
-		<plugins>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-plugin-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>descriptor</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
