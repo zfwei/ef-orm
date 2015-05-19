@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>orm-test</artifactId>
 	<name>orm-test</name>
-	<description>  为此专门将测试案例提取出来，一次性测试common-orm, common-orm-routing等案例的测试覆盖率</description>
+	<description>专门将测试案例提取出来，一次性测试common-orm, common-orm-routing等案例的测试覆盖率</description>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -136,7 +136,7 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.3.0</version>
+			<version>2.3.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
