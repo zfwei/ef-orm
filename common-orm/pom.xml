@@ -24,11 +24,6 @@
 			<version>1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>17.0</version>
@@ -100,7 +95,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.5</version>
+			<version>1.7.10</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- 各种连接池的识别 常用的三种第三方连接池 -->

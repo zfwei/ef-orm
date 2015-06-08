@@ -20,6 +20,12 @@
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-orm</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>rhino</artifactId>
+					<groupId>org.mozilla</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
