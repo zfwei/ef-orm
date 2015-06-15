@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>ef-orm</artifactId>
 		<groupId>org.easyframe</groupId>
-		<version>1.9.7.RELEASE</version>
+		<version>1.9.8.RELEASE</version>
 	</parent>
 	<artifactId>orm-test</artifactId>
 	<name>orm-test</name>
@@ -20,6 +20,12 @@
 			<groupId>org.easyframe</groupId>
 			<artifactId>common-orm</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>rhino</artifactId>
+					<groupId>org.mozilla</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
