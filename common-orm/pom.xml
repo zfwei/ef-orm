@@ -6,12 +6,11 @@
 	<parent>
 		<groupId>org.easyframe</groupId>
 		<artifactId>ef-orm</artifactId>
-		<version>1.10.5.4</version>
+		<version>1.10.6.RELEASE</version>
 	</parent>
 	<artifactId>common-orm</artifactId>
 	<name>common-orm</name>
 	<packaging>jar</packaging>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.easyframe</groupId>
@@ -41,11 +40,20 @@
 
 		<!-- JDBC Drivers dependencies -->
 		<dependency>
+			<groupId>com.hynnet</groupId>
+			<artifactId>oracle-driver-ojdbc6</artifactId>
+			<version>12.1.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 
+		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>12.1.0.1.0</version>
-			<scope>provided</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/../orm-test/lib/ojdbc6-12.1.0.1.0.jar</systemPath>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

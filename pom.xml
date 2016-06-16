@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.easyframe</groupId>
 	<artifactId>ef-orm</artifactId>
-	<version>1.10.5.4</version>
+	<version>1.10.6.RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>EasyFrame ORM</name>
@@ -14,7 +15,7 @@
 		<module>orm-test</module>
 		<module>jef-maven-plugin</module>
 		<module>orm-code-generator</module>
-  </modules>
+	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springframework.version>3.2.5.RELEASE</springframework.version>
@@ -41,7 +42,7 @@
 	</dependencies>
 
 	<build>
-	    <!-- 关于资源文件的放置位置，修改maven习惯为eclipse习惯 -->
+		<!-- 关于资源文件的放置位置，修改maven习惯为eclipse习惯 -->
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -82,7 +83,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
@@ -100,6 +100,9 @@
 					<charset>UTF-8</charset>
 					<docencoding>UTF-8</docencoding>
 					<show>public</show>
+					<!--
+					<additionalparam>-Xdoclint:none</additionalparam>
+					-->
 				</configuration>
 				<executions>
 					<execution>
