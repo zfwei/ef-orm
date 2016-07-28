@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.easyframe</groupId>
 	<artifactId>orm-tutorial</artifactId>
-	<version>1.10.6.RELEASE</version>
+	<version>1.11.0-SNAPSHOT</version>
 	<name>orm-tutorial</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -14,20 +14,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.easyframe</groupId>
-			<artifactId>common-core</artifactId>
-			<version>1.10.6.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.easyframe</groupId>
 			<artifactId>common-orm</artifactId>
-			<version>1.10.6.RELEASE</version>
+			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.easyframe</groupId>
-			<artifactId>orm-test</artifactId>
-			<version>1.10.6.RELEASE</version>
-		</dependency>
-
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -54,11 +43,6 @@
 			<artifactId>derby</artifactId>
 			<version>10.10.2.0</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>14.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -135,6 +119,16 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerVersion>1.6</compilerVersion>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
