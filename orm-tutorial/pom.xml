@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.easyframe</groupId>
 	<artifactId>orm-tutorial</artifactId>
-	<version>1.11.1.RELEASE</version>
+	<version>1.11.3-SNAPSHOT</version>
 	<name>orm-tutorial</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -55,6 +55,12 @@
 			<version>3.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
+			<groupId>com.hynnet</groupId>
+			<artifactId>oracle-driver-ojdbc6</artifactId>
+			<version>12.1.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>3.2.5.RELEASE</version>
@@ -67,7 +73,13 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.25</version>
+			<version>5.1.39</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1200-jdbc4</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
