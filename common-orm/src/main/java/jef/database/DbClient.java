@@ -215,6 +215,18 @@ public class DbClient extends Session implements SessionFactory {
 		}
 		return selectTarget(MetaHolder.getMappingSite(nc.getTag())).createNativeQuery(nc, resultMeta);
 	}
+	
+	/**
+	 * 检测一个命名查询是否存在
+	 * @param name
+	 * @return
+	 */
+	public boolean hasNamedQuery(String name){
+		if (namedQueries == null)
+			initNQ();
+		NQEntry nc = namedQueries.get(name);
+		return nc!=null;
+	}
 
 	/**
 	 * 增加一个数据库操作监听器 操作监听器是可以为各种数据库操作编写事件的一个自定义的类。
@@ -265,7 +277,9 @@ public class DbClient extends Session implements SessionFactory {
 
 	protected String getTransactionId(String key) {
 		StringBuilder sb = new StringBuilder();
-		sb.append('[').append(getProfile(key).getName()).append(':').append(getDbName(key)).append('@').append(Thread.currentThread().getId()).append(']');
+		//2016/7/8 优化，Map hash查找仅发生一次。
+		ConnectInfo info=connPool.getInfo(key);
+		sb.append('[').append(info.profile.getName()).append(':').append(info.dbname).append('@').append(Thread.currentThread().getId()).append(']');
 		return sb.toString();
 	}
 
@@ -319,8 +333,7 @@ public class DbClient extends Session implements SessionFactory {
 		this.ds = ds;
 		this.connPool = PoolService.getPool(ds,min, max, txType);
 		Assert.notNull(connPool);
-		if (ORMConfig.getInstance().isDebugMode())
-			LogUtil.info("Init DB Connection:" + connPool.getInfo(null));
+		LogUtil.info("Init DB Connection:" + connPool.getInfo(null));
 		afterPoolReady();
 	}
 
@@ -330,7 +343,7 @@ public class DbClient extends Session implements SessionFactory {
 	private void afterPoolReady() throws SQLException {
 		// 初始化处理器
 		DatabaseDialect profile = this.getProfile(null);
-		this.rProcessor = new DefaultSqlProcessor(profile, this);
+		this.preProcessor = new SqlProcessor.PrepareImpl(profile, this);
 		this.selectp = SelectProcessor.get(profile, this);
 		this.insertp = InsertProcessor.get(profile, this);
 		this.updatep = UpdateProcessor.get(profile, this);
@@ -339,7 +352,7 @@ public class DbClient extends Session implements SessionFactory {
 		
 		//设置全局缓存
 		if(ORMConfig.getInstance().getCacheLevel2()>0) {
-			this.golbalCache=new CacheImpl(rProcessor, selectp, ORMConfig.getInstance().getCacheLevel2(),"GLOBAL");
+			this.golbalCache=new CacheImpl(preProcessor, selectp, ORMConfig.getInstance().getCacheLevel2(),"GLOBAL");
 		}else {
 			this.golbalCache=CacheDummy.getInstance();
 		}
@@ -406,7 +419,6 @@ public class DbClient extends Session implements SessionFactory {
 			if (showVersion) {
 				LogUtil.show(meta.getDbVersion());
 			}
-			meta.getProfile().init(session.selectTarget(key));
 		}
 	}
 
@@ -429,7 +441,7 @@ public class DbClient extends Session implements SessionFactory {
 	 * <p>
 	 * 
 	 * If there are multiple datasources , use {@link #getMetaData(String)} then
-	 * call {@link DbMetaData#existTable(String)} to check.
+	 * call {@link DbMetaData#getExistTable(String)} to check.
 	 * 
 	 * @param tableName
 	 *            支持Schema重定向
@@ -1011,7 +1023,7 @@ public class DbClient extends Session implements SessionFactory {
 		return namedQueryTablename;
 	}
 
-	protected boolean isJpaTx() {
+	 boolean isJpaTx() {
 		return false;
 	}
 

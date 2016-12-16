@@ -102,6 +102,7 @@ public class NestedObjectPopulator implements IPopulator {
 			lastAccessor.set(raw, subDo);
 		}
 	}
+
 	@SuppressWarnings("rawtypes")
 	static class ToSetFunction implements Function<Object,Object>{
 		@SuppressWarnings("unchecked")

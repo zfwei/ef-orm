@@ -153,34 +153,52 @@ public class QuerableEntityScanner {
 		Map<ITableMetadata, Boolean> tasks = new HashMap<ITableMetadata, Boolean>();
 		for (String s : classes) {
 			try {
-				// 读取类
-				URL url = cl.getResource(s.replace('.', '/') + ".class");
-				if (url == null)
+				ClassReader cr = getClassInfo(cl,s);
+				if( cr==null)//NOT found class
 					continue;
-				InputStream stream = url.openStream();
-				if (stream == null) {
-					LogUtil.error("The class content [" + s + "] not found!");
-					continue;
-				}
-				ClassReader cr = new ClassReader(stream);
-				IOUtils.closeQuietly(stream);
-
 				// 根据父类判断
-				String superName = cr.getSuperName();
-				if (!ArrayUtils.contains(parents, superName)) {// 是实体
-					continue;
-				}
-
-				// 加载或初始化
-				Class<?> clz = loadClass(cl, s);
-				if (clz != null) {
-					registeEntity(clz, tasks);
-				}
+				if(isEntiyClz(cl,parents,cr.getSuperName())){
+					Class<?> clz = loadClass(cl, s);
+					if (clz != null) {
+						registeEntity(clz, tasks);
+					}
+				};
 			} catch (IOException e) {
 				LogUtil.exception(e);
 			}
 		}
 		processInit(tasks);
+	}
+
+	private boolean isEntiyClz(ClassLoader cl ,String[] parents,String superName) throws IOException {
+		if("java/lang/Object".equals(superName)){
+			return false;
+		}
+		if (ArrayUtils.contains(parents, superName)) {// 是实体
+			return true;
+		}
+		// 读取类
+		ClassReader cr = getClassInfo(cl,superName);
+		if(cr==null){
+			return false;
+		}
+		return isEntiyClz(cl,parents, cr.getSuperName());
+	}
+
+	private ClassReader getClassInfo(ClassLoader cl,String s) throws IOException {
+		URL url = cl.getResource(s.replace('.', '/') + ".class");
+		if (url == null)
+			return null;
+		InputStream stream = url.openStream();
+		if (stream == null) {
+			LogUtil.error("The class content [" + s + "] not found!");
+			return null;
+		}
+		try{
+			return new ClassReader(stream);
+		}finally{
+			IOUtils.closeQuietly(stream);
+		}
 	}
 
 	private Class<?> loadClass(ClassLoader cl, String s) {
@@ -193,15 +211,27 @@ public class QuerableEntityScanner {
 		}
 	}
 
-	public boolean registeEntity(String name) {
+	public boolean registeEntity(String... names) {
+		if(names==null)return true;
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		if (cl == null) {
 			cl = this.getClass().getClassLoader();
 		}
+
 		Map<ITableMetadata, Boolean> tasks = new HashMap<ITableMetadata, Boolean>();
+		for (String name : names) {
+			if (StringUtils.isEmpty(name)) {
+				continue;
+			}
+			Class<?> c;
+			try {
+				c = cl.loadClass(name);
+				registeEntity(c, tasks);
+			} catch (ClassNotFoundException e) {
+				LogUtil.error("Class not found:" + e.getMessage());
+			}
+		}
 		try {
-			Class<?> c = cl.loadClass(name);
-			registeEntity(c, tasks);
 			processInit(tasks);
 			return true;
 		} catch (Exception e) {
@@ -222,7 +252,7 @@ public class QuerableEntityScanner {
 					URL url = meta.getThisType().getResource(meta.getThisType().getSimpleName() + ".init.json");
 					if (url != null) {
 						try {
-							initData(url, meta,false);
+							initData(url, meta, false);
 						} catch (IOException e1) {
 							LogUtil.exception(e1);
 						}
@@ -231,7 +261,7 @@ public class QuerableEntityScanner {
 					URL url = meta.getThisType().getResource(meta.getThisType().getSimpleName() + ".init.json");
 					if (url != null) {
 						try {
-							initData(url, meta,true);
+							initData(url, meta, true);
 						} catch (IOException e1) {
 							LogUtil.exception(e1);
 						}
@@ -292,7 +322,8 @@ public class QuerableEntityScanner {
 					return refresh;
 				}
 
-				public boolean onColumnsCompared(String tablename, ITableMetadata meta, Map<String, ColumnType> insert, List<ColumnModification> changed, List<String> delete) {
+				public boolean onColumnsCompared(String tablename, ITableMetadata meta, Map<String, ColumnType> insert,
+						List<ColumnModification> changed, List<String> delete) {
 					if (!allowDropColumn) {
 						delete.clear();
 					}
@@ -319,7 +350,8 @@ public class QuerableEntityScanner {
 			for (ColumnMapping f : meta.getColumns()) {
 				if (f instanceof AutoIncrementMapping) {
 					AutoIncrementMapping m = (AutoIncrementMapping) f;
-					GenerationResolution gt = ((AutoIncrementMapping) f).getGenerationType(entityManagerFactory.getDefault().getProfile(meta.getBindDsName()));
+					GenerationResolution gt = ((AutoIncrementMapping) f).getGenerationType(entityManagerFactory.getDefault().getProfile(
+							meta.getBindDsName()));
 					if (gt == GenerationResolution.SEQUENCE || gt == GenerationResolution.TABLE) {
 						entityManagerFactory.getDefault().getSequenceManager().getSequence(m, meta.getBindDsName());
 					}
